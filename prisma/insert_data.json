@@ -1,0 +1,541 @@
+[
+  {
+    
+    "data": {
+      "subject_id": "05501001",
+      "subject_name": "Introduction to Computer Science",
+      "subject_credit": 3,
+      "subject_teacher": "Dr. Smith",
+      "subject_requiriste_id": null
+    }
+  },
+  {
+    
+    "data": {
+      "subject_id": "05501002",
+      "subject_name": "Programming Fundamentals",
+      "subject_credit": 3,
+      "subject_teacher": "Prof. Jones",
+      "subject_requiriste_id": null
+    }
+  },
+  {
+    
+    "data": {
+      "subject_id": "05501003",
+      "subject_name": "Calculus for Computer Science I",
+      "subject_credit": 3,
+      "subject_teacher": "Dr. Davis",
+      "subject_requiriste_id": null
+    }
+  },
+  {
+    
+    "data": {
+      "subject_id": "05501004",
+      "subject_name": "Object-Oriented Programming",
+      "subject_credit": 3,
+      "subject_teacher": "Prof. Williams",
+      "subject_requiriste_id": "05501002"
+    }
+  },
+  {
+    
+    "data": {
+      "subject_id": "05501005",
+      "subject_name": "Data Structures",
+      "subject_credit": 3,
+      "subject_teacher": "Dr. Brown",
+      "subject_requiriste_id": "05501002"
+    }
+  },
+  {
+    
+    "data": {
+      "subject_id": "05501006",
+      "subject_name": "Computer Networks",
+      "subject_credit": 3,
+      "subject_teacher": "Prof. Miller",
+      "subject_requiriste_id": null
+    }
+  },
+  {
+    
+    "data": {
+      "subject_id": "05501007",
+      "subject_name": "Software Engineering",
+      "subject_credit": 3,
+      "subject_teacher": "Dr. Taylor",
+      "subject_requiriste_id": null
+    }
+  },
+  {
+    
+    "data": {
+      "subject_id": "90691001",
+      "subject_name": "Thai Language for Communication",
+      "subject_credit": 3,
+      "subject_teacher": "Prof. Wong",
+      "subject_requiriste_id": null
+    }
+  },
+  {
+    
+    "data": {
+      "subject_id": "90691002",
+      "subject_name": "Life and Health",
+      "subject_credit": 2,
+      "subject_teacher": "Dr. Chan",
+      "subject_requiriste_id": null
+    }
+  },
+  {
+    
+    "data": {
+      "subject_id": "90691003",
+      "subject_name": "World Civilization",
+      "subject_credit": 3,
+      "subject_teacher": "Prof. Lee",
+      "subject_requiriste_id": null
+    }
+  },
+  {
+    
+    "data": {
+      "subject_id": "90691004",
+      "subject_name": "Psychology in Everyday Life",
+      "subject_credit": 3,
+      "subject_teacher": "Dr. Park",
+      "subject_requiriste_id": null
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110001",
+      "subjectstructure_name": "หลักสูตรวิทยาการคอมพิวเตอร์",
+      "subjectstructure_department_name": "ภาควิชาวิทยาการคอมพิวเตอร์",
+      "subject_require_id": "05501001",
+      "subjectstructure_term": 1
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110001",
+      "subjectstructure_name": "หลักสูตรวิทยาการคอมพิวเตอร์",
+      "subjectstructure_department_name": "ภาควิชาวิทยาการคอมพิวเตอร์",
+      "subject_require_id": "05501002",
+      "subjectstructure_term": 1
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110001",
+      "subjectstructure_name": "หลักสูตรวิทยาการคอมพิวเตอร์",
+      "subjectstructure_department_name": "ภาควิชาวิทยาการคอมพิวเตอร์",
+      "subject_require_id": "90691001",
+      "subjectstructure_term": 1
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110001",
+      "subjectstructure_name": "หลักสูตรวิทยาการคอมพิวเตอร์",
+      "subjectstructure_department_name": "ภาควิชาวิทยาการคอมพิวเตอร์",
+      "subject_require_id": "05501004",
+      "subjectstructure_term": 2
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110001",
+      "subjectstructure_name": "หลักสูตรวิทยาการคอมพิวเตอร์",
+      "subjectstructure_department_name": "ภาควิชาวิทยาการคอมพิวเตอร์",
+      "subject_require_id": "05501005",
+      "subjectstructure_term": 2
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110001",
+      "subjectstructure_name": "หลักสูตรวิทยาการคอมพิวเตอร์",
+      "subjectstructure_department_name": "ภาควิชาวิทยาการคอมพิวเตอร์",
+      "subject_require_id": "90691002",
+      "subjectstructure_term": 2
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110002",
+      "subjectstructure_name": "หลักสูตรวิศวกรรมซอฟต์แวร์",
+      "subjectstructure_department_name": "ภาควิชาวิศวกรรมซอฟต์แวร์",
+      "subject_require_id": "05501006",
+      "subjectstructure_term": 1
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110002",
+      "subjectstructure_name": "หลักสูตรวิศวกรรมซอฟต์แวร์",
+      "subjectstructure_department_name": "ภาควิชาวิศวกรรมซอฟต์แวร์",
+      "subject_require_id": "05501007",
+      "subjectstructure_term": 1
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110002",
+      "subjectstructure_name": "หลักสูตรวิศวกรรมซอฟต์แวร์",
+      "subjectstructure_department_name": "ภาควิชาวิศวกรรมซอฟต์แวร์",
+      "subject_require_id": "90691003",
+      "subjectstructure_term": 1
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110002",
+      "subjectstructure_name": "หลักสูตรวิศวกรรมซอฟต์แวร์",
+      "subjectstructure_department_name": "ภาควิชาวิศวกรรมซอฟต์แวร์",
+      "subject_require_id": "05501002",
+      "subjectstructure_term": 2
+    }
+  },
+  {
+    "model": "SubjectStructure",
+    "data": {
+      "subjectstructure_id": "11110002",
+      "subjectstructure_name": "หลักสูตรวิศวกรรมซอฟต์แวร์",
+      "subjectstructure_department_name": "ภาควิชาวิศวกรรมซอฟต์แวร์",
+      "subject_require_id": "90691004",
+      "subjectstructure_term": 2
+    }
+  },
+
+  {
+    
+    "data": {
+      "user_name": "admin",
+      "user_password": "hashed_password_for_admin",
+      "user_role": "admin"
+    }
+  },
+  {
+    
+    "data": {
+      "user_name": "69010001",
+      "user_password": "12345678",
+      "user_role": "student"
+    }
+  },
+  {
+    "model": "Students",
+    "data": {
+      "student_id": "69010001",
+      "student_tile": "นาย",
+      "student_name": "สมชาย",
+      "student_surname": "ใจดี",
+      "student_birthdate": "2006-05-15T00:00:00Z",
+      "student_age": 19,
+      "student_school": "โรงเรียนเตรียมอุดมศึกษา",
+      "student_email": "somchai.j@example.com",
+      "student_subjectStructure_id": 1,
+      "student_user_id": 2
+    }
+  },
+  {
+    
+    "data": {
+      "user_name": "69010002",
+      "user_password": "12345678",
+      "user_role": "student"
+    }
+  },
+  {
+    "model": "Students",
+    "data": {
+      "student_id": "69010002",
+      "student_tile": "นางสาว",
+      "student_name": "นริศรา",
+      "student_surname": "ศรีสุข",
+      "student_birthdate": "2006-08-22T00:00:00Z",
+      "student_age": 19,
+      "student_school": "โรงเรียนบดินทรเดชา (สิงห์ สิงหเสนี)",
+      "student_email": "narissara.s@example.com",
+      "student_subjectStructure_id": 2,
+      "student_user_id": 3
+    }
+  },
+  {
+    
+    "data": {
+      "user_name": "69010003",
+      "user_password": "12345678",
+      "user_role": "student"
+    }
+  },
+  {
+    "model": "Students",
+    "data": {
+      "student_id": "69010003",
+      "student_tile": "นาย",
+      "student_name": "วิชชา",
+      "student_surname": "รักเรียน",
+      "student_birthdate": "2006-11-01T00:00:00Z",
+      "student_age": 19,
+      "student_school": "โรงเรียนสวนกุหลาบวิทยาลัย",
+      "student_email": "witcha.r@example.com",
+      "student_subjectStructure_id": 1,
+      "student_user_id": 4
+    }
+  },
+  {
+    
+    "data": {
+      "user_name": "69010004",
+      "user_password": "12345678",
+      "user_role": "student"
+    }
+  },
+  {
+    "model": "Students",
+    "data": {
+      "student_id": "69010004",
+      "student_tile": "นางสาว",
+      "student_name": "ลลิตา",
+      "student_surname": "ใจใส",
+      "student_birthdate": "2007-02-28T00:00:00Z",
+      "student_age": 18,
+      "student_school": "โรงเรียนหอวัง",
+      "student_email": "lalita.j@example.com",
+      "student_subjectStructure_id": 2,
+      "student_user_id": 5
+    }
+  },
+  {
+    
+    "data": {
+      "user_name": "69010005",
+      "user_password": "12345678",
+      "user_role": "student"
+    }
+  },
+  {
+    "model": "Students",
+    "data": {
+      "student_id": "69010005",
+      "student_tile": "นาย",
+      "student_name": "ศุภกร",
+      "student_surname": "สุขสม",
+      "student_birthdate": "2006-07-07T00:00:00Z",
+      "student_age": 19,
+      "student_school": "โรงเรียนมหิดลวิทยานุสรณ์",
+      "student_email": "supakorn.s@example.com",
+      "student_subjectStructure_id": 1,
+      "student_user_id": 6
+    }
+  },
+  {
+    
+    "data": {
+      "user_name": "69010006",
+      "user_password": "12345678",
+      "user_role": "student"
+    }
+  },
+  {
+    "model": "Students",
+    "data": {
+      "student_id": "69010006",
+      "student_tile": "นางสาว",
+      "student_name": "วิจิตรา",
+      "student_surname": "มีชัย",
+      "student_birthdate": "2006-09-19T00:00:00Z",
+      "student_age": 19,
+      "student_school": "โรงเรียนเตรียมอุดมศึกษาพัฒนาการ",
+      "student_email": "wijitra.m@example.com",
+      "student_subjectStructure_id": 2,
+      "student_user_id": 7
+    }
+  },
+  {
+    
+    "data": {
+      "user_name": "69010007",
+      "user_password": "12345678",
+      "user_role": "student"
+    }
+  },
+  {
+    "model": "Students",
+    "data": {
+      "student_id": "69010007",
+      "student_tile": "นาย",
+      "student_name": "ธนกร",
+      "student_surname": "เก่งกาจ",
+      "student_birthdate": "2007-04-03T00:00:00Z",
+      "student_age": 18,
+      "student_school": "โรงเรียนอัสสัมชัญ",
+      "student_email": "thanakorn.k@example.com",
+      "student_subjectStructure_id": 1,
+      "student_user_id": 8
+    }
+  },
+  {
+    
+    "data": {
+      "user_name": "69010008",
+      "user_password": "12345678",
+      "user_role": "student"
+    }
+  },
+  {
+    "model": "Students",
+    "data": {
+      "student_id": "69010008",
+      "student_tile": "นางสาว",
+      "student_name": "ปิยธิดา",
+      "student_surname": "รักชาติ",
+      "student_birthdate": "2006-06-25T00:00:00Z",
+      "student_age": 19,
+      "student_school": "โรงเรียนสารสาสน์วิเทศรังสิต",
+      "student_email": "piyatida.r@example.com",
+      "student_subjectStructure_id": 2,
+      "student_user_id": 9
+    }
+  },
+  {
+    
+    "data": {
+      "user_name": "69010009",
+      "user_password": "12345678",
+      "user_role": "student"
+    }
+  },
+  {
+    "model": "Students",
+    "data": {
+      "student_id": "69010009",
+      "student_tile": "นาย",
+      "student_name": "จิรวัฒน์",
+      "student_surname": "พิทักษ์",
+      "student_birthdate": "2006-10-10T00:00:00Z",
+      "student_age": 19,
+      "student_school": "โรงเรียนสาธิตจุฬาลงกรณ์มหาวิทยาลัย",
+      "student_email": "jirawat.p@example.com",
+      "student_subjectStructure_id": 1,
+      "student_user_id": 10
+    }
+  },
+  {
+    
+    "data": {
+      "user_name": "69010010",
+      "user_password": "12345678",
+      "user_role": "student"
+    }
+  },
+  {
+    "model": "Students",
+    "data": {
+      "student_id": "69010010",
+      "student_tile": "นางสาว",
+      "student_name": "สุพรรษา",
+      "student_surname": "เจริญยิ่ง",
+      "student_birthdate": "2007-01-05T00:00:00Z",
+      "student_age": 18,
+      "student_school": "โรงเรียนบดินทรเดชา (สิงห์ สิงหเสนี)",
+      "student_email": "supansa.j@example.com",
+      "student_subjectStructure_id": 2,
+      "student_user_id": 11
+    }
+  },
+  {
+    
+    "data": {
+      "student_id": "69010001",
+      "subject_id": "05501001",
+      "grade": "A"
+    }
+  },
+  {
+    
+    "data": {
+      "student_id": "69010001",
+      "subject_id": "05501002",
+      "grade": "B+"
+    }
+  },
+  {
+    
+    "data": {
+      "student_id": "69010002",
+      "subject_id": "05501006",
+      "grade": "C"
+    }
+  },
+  {
+    
+    "data": {
+      "student_id": "69010002",
+      "subject_id": "05501007",
+      "grade": "A-"
+    }
+  },
+  {
+    
+    "data": {
+      "student_id": "69010003",
+      "subject_id": "90691001",
+      "grade": "A"
+    }
+  },
+  {
+    
+    "data": {
+      "student_id": "69010004",
+      "subject_id": "05501002",
+      "grade": null
+    }
+  },
+  {
+    
+    "data": {
+      "student_id": "69010005",
+      "subject_id": "05501004",
+      "grade": "B"
+    }
+  },
+  {
+    
+    "data": {
+      "student_id": "69010006",
+      "subject_id": "90691003",
+      "grade": null
+    }
+  },
+  {
+    
+    "data": {
+      "student_id": "69010007",
+      "subject_id": "05501005",
+      "grade": "A"
+    }
+  },
+  {
+    
+    "data": {
+      "student_id": "69010008",
+      "subject_id": "90691004",
+      "grade": "B+"
+    }
+  }
+]
