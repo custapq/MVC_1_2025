@@ -1,5 +1,6 @@
 import { createSubject,getAllSubjects,getAllNotRegisteredSubjects } from "../models/subjectsModel.js";
 
+//สร้าง subject ใหม่พร้อมการตรวจสอบรูปแบบรหัสวิชา
 export const addSubject = async (req, res) => {
   try {
     const {
@@ -27,6 +28,7 @@ export const addSubject = async (req, res) => {
   }
 };
 
+//ดึง subject ทั้งหมด
 export const getAllSubject = async (req, res) => {
     try {
         const { student_id } = req.params;
@@ -38,6 +40,7 @@ export const getAllSubject = async (req, res) => {
     }
 };
 
+//ดึง subject ที่ยังไม่ลงทะเบียน
 export const getAllNotRegisteredSubject = async (req, res) => {
     try {
         const { student_id } = req.params;
@@ -50,7 +53,8 @@ export const getAllNotRegisteredSubject = async (req, res) => {
     }
 };
 
+//ตรวจสอบรูปแบบรหัสวิชา
 const validateId = (id) => {
-  const studentIdRegex = /^(0550|9069)\d{4}$/;
+  const studentIdRegex = /^(0550|9069)\d{4}$/; // 8 หลัก ขึ้นต้นด้วย 0550 หรือ 9069
   return studentIdRegex.test(id);
 };

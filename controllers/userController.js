@@ -1,5 +1,6 @@
 import { createUser, getAllUsers, getAdminUsersById,getStudentUsersById } from "../models/userModel.js";
 
+//สร้าง user ใหม่
 export const registerUser = async (req, res) => {
   try {
     const { user_name, user_password, user_role } = req.body;
@@ -10,6 +11,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
+//login user admin
 export const loginUserAdmin = async (req, res) => {
   try {
     const { user_name, user_password } = req.body;
@@ -28,6 +30,7 @@ export const loginUserAdmin = async (req, res) => {
   }
 };
 
+//login user student
 export const loginUserStudent = async (req, res) => {
   try {
     const { user_name, user_password } = req.body;

@@ -6,6 +6,7 @@ import {
   
 } from "../models/studentModel.js";
 
+//สร้าง student ใหม่ พร้อมการตรวจสอบอายุและรูปแบบรหัสนักเรียน
 export const createStudentController = async (req, res) => {
   const {
     student_id,
@@ -42,12 +43,14 @@ export const createStudentController = async (req, res) => {
   res.status(201).json(newStudent);
 };
 
+//ดึง student โดยใช้ student_id 
 export const getStudentDetail = async (req, res) => {
   const { id } = req.params;
   const student = await getStudentById(id);
   res.status(200).json(student);
 };
 
+//ดึง student โดยใช้ student_id เพื่อแสดงผลใน ADMIN
 export const getStudentDetailAdmin = async (req, res) => {
     const { id } = req.params;
     try {
@@ -62,6 +65,7 @@ export const getStudentDetailAdmin = async (req, res) => {
     }
 };
 
+//ดึง student ทั้งหมด
 export const getAllStudent = async (req, res) => {
   try {
     const students = await getAllStudents();
@@ -72,6 +76,7 @@ export const getAllStudent = async (req, res) => {
   }
 };
 
+//คำนวณอายุ
 const calculateAge = (birthdate) => {
   const birth = new Date(birthdate);
   const today = new Date();
@@ -82,8 +87,8 @@ const calculateAge = (birthdate) => {
   }
   return age;
 };
-
+//ตรวจสอบรูปแบบรหัสนักเรียน
 const validateId = (id) => {
-  const studentIdRegex = /^(69)\d{6}$/;
+  const studentIdRegex = /^(69)\d{6}$/; // 8 หลัก ขึ้นต้นด้วย 69
   return studentIdRegex.test(id);
 };

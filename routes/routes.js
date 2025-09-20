@@ -7,29 +7,33 @@ import {addSubjectStructure, getAllSubjectStructure} from "../controllers/subjec
 
 const router = express.Router();
 
-//api
+//api ในการจัดการการลงทะเบียนวิชา
 router.post("/register", registeredSubject);
 router.post("/registerSubject", registerSubject);
 router.put("/updateGrade", changeGrade);
 
+//api ในการจัดการ student
 router.post("/students", createStudentController);
 router.get("/students", getAllStudent);
 router.get("/students/:id", getStudentDetail);
 router.get("/students/admin/:id", getStudentDetailAdmin);
 
+//api ในการจัดการ subject
 router.post("/subjects", addSubject);
 router.get("/subjects/:student_id", getAllSubject);
 router.get("/subjects/notRegistered/:student_id", getAllNotRegisteredSubject);
 
+//api ในการจัดการ user
 router.post("/users/register", registerUser);
 router.post("/users/login/admin", loginUserAdmin);
 router.post("/users/login/student", loginUserStudent);
 router.get("/users", getAllUers);
 
+//api ในการจัดการ subject structure
 router.post("/subjectStructures", addSubjectStructure);
 router.get("/subjectStructures", getAllSubjectStructure);
 
-//view
+//view rendering
 router.get("/", (req, res) => {
     res.render("login", { pageTitle: "Login" });
 });

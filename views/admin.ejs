@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const studentsTableBody = document.getElementById('studentsTableBody');
   const logoutButton = document.getElementById('logoutButton');
 
+  //ดึงข้อมูลนักเรียนทั้งหมดมาแสดงในรูปแบบตาราง
   async function fetchStudents() {
     try {
       const response = await axios.get('/students');
@@ -49,6 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const row = document.createElement('tr');
         row.classList.add('hover:bg-gray-50', 'cursor-pointer');
 
+        //คลิกที่แถวเพื่อไปยังหน้ารายละเอียดนักเรียนแต่ละคน
         row.onclick = () => {
           const pathParts = window.location.pathname.split('/');
           const adminId = pathParts[2];

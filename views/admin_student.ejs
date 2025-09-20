@@ -59,7 +59,6 @@
         </tr>
       </thead>
       <tbody id="subjectsTableBody">
-        <!-- Subject data will be loaded here -->
       </tbody>
     </table>
   </div>
@@ -67,11 +66,13 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
+    // ดึง studentId จาก URL
     const pathParts = window.location.pathname.split("/");
     const studentId = pathParts[4];
     const loadingDiv = document.getElementById("loading");
     const messageDiv = document.getElementById("message");
 
+    //ดึงข้อมูลจาก DOM
     const studentIdDisplay = document.getElementById("studentIdDisplay");
     const studentNameDisplay = document.getElementById("studentNameDisplay");
     const studentYearDisplay = document.getElementById("studentYearDisplay");
@@ -79,6 +80,8 @@
     const backButton = document.getElementById("backButton");
 
     loadingDiv.classList.remove("hidden");
+
+    // ฟังก์ชันในการดึงข้อมูลนักเรียน
     async function fetchStudentDetails() {
       try {
         const response = await axios.get(`/students/admin/${studentId}`);
@@ -93,6 +96,7 @@
       }
     }
 
+    // ฟังก์ชันในการดึงข้อมูลรายวิชาที่นักเรียนลงทะเบียน
     async function fetchSubjects() {
       try {
         const response = await axios.get(`/students/admin/${studentId}`);
@@ -173,8 +177,10 @@
       }
     }
 
-    function attachGradeUpdateListeners() {
+    // ฟังก์ชันในการ update เกรด
+    function gradeUpdateListeners() {
       document.querySelectorAll(".update-grade-btn").forEach((button) => {
+        // เพิ่ม event ให้ปุ่ม update
         button.addEventListener("click", async (e) => {
           const subjectId = e.target.dataset.subjectId;
           const newGrade = e.target
@@ -183,6 +189,7 @@
           e.target.disabled = true;
 
           try {
+            // เรียก API เพื่อ update
             const response = await axios.put("/updateGrade", {
               student_id: studentId,
               subject_id: subjectId,
@@ -202,12 +209,14 @@
         });
       });
     }
+    //กลับไปยังหน้า admin dashboard
     backButton.addEventListener("click", () => {
       const pathParts = window.location.pathname.split("/");
       const adminId = pathParts[2];
       window.location.href = `/admin/${adminId}`;
     });
 
+    // เรียก function เพื่อดึงข้อมูล
     await fetchStudentDetails();
     await fetchSubjects();
   });

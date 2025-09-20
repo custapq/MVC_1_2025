@@ -127,6 +127,7 @@
     const addSubjectButton = document.getElementById("addSubjectButton");
     const logoutButton = document.getElementById("logoutButton");
 
+    // ดึงข้อมูลรายละเอียดนักเรียน
     async function fetchStudentDetails() {
       try {
         const response = await axios.get(`/students/${studentId}`);
@@ -144,6 +145,8 @@
         messageDiv.classList.remove("hidden");
       }
     }
+
+    // function ในการดึงข้อมูลรายวิชาที่นักเรียนลงทะเบียน
     async function fetchRegisteredSubjects() {
       try {
         const response = await axios.get(`/students/${studentId}`);
@@ -180,6 +183,7 @@
       }
     }
 
+    // function ในการดึงข้อมูลรายวิชาทั้งหมดที่สามารถลงทะเบียนได้
     async function fetchAllSubjects() {
       allSubjectsContainer.classList.remove("hidden");
       try {
@@ -213,13 +217,14 @@
         messageDiv.classList.remove("hidden");
       }
     }
-
+    // function ในการเพิ่มวิชา
     function attachAddSubjectListeners() {
       document.querySelectorAll(".add-subject-btn").forEach((button) => {
         button.addEventListener("click", async (e) => {
           const subjectId = e.target.dataset.subjectId;
           e.target.disabled = true;
           try {
+            // เรียก API เพื่อเพิ่มวิชา
             const response = await axios.post("/registerSubject", {
               student_id: studentId,
               subject_id: subjectId,
@@ -241,17 +246,18 @@
         });
       });
     }
-
+    // แสดงตารางวิชาที่สามารถเพิ่มได้เมื่อคลิกปุ่ม
     addSubjectButton.addEventListener("click", () => {
       fetchAllSubjects();
       addSubjectButton.classList.add("hidden");
     });
-
+    // ออกจากระบบ
     logoutButton.addEventListener("click", () => {
       window.location.href = "/";
     });
 
     loadingDiv.classList.remove("hidden");
+    // เรียก function เพื่อดึงข้อมูล
     await fetchStudentDetails();
     await fetchRegisteredSubjects();
     loadingDiv.classList.add("hidden");

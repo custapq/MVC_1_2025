@@ -3,6 +3,7 @@ import {
   getAllSubjectStructures,
 } from "../models/subjectStructure.js";
 
+//สร้าง subject structure ใหม่พร้อมตรวจสอบรูปแบบรหัสหลักสูตร
 export const addSubjectStructure = async (req, res) => {
   try {
     const {
@@ -33,6 +34,7 @@ export const addSubjectStructure = async (req, res) => {
   }
 };
 
+//ดึง subject structure ทั้งหมด
 export const getAllSubjectStructure = async (req, res) => {
   try {
     const subjectStructures = await getAllSubjectStructures();
@@ -43,7 +45,8 @@ export const getAllSubjectStructure = async (req, res) => {
   }
 };
 
+//ตรวจสอบรูปแบบรหัสหลักสูตร 
 const validateId = (id) => {
-  const subjectStructureIdRegex = /^[1-9][0-9]{7}$/;
+  const subjectStructureIdRegex = /^[1-9][0-9]{7}$/; // 8 หลัก ตัวแรกไม่ใช่ 0
   return subjectStructureIdRegex.test(id);
 };

@@ -1,10 +1,13 @@
 import prisma from "../prisma/prisma.js";
 
+//ดึง student โดยใช้ student_id
 export const getStudent = async (student_id) => {
   return await prisma.students.findUnique({
     where: { student_id }
   });
 }
+
+//ดึง student ทั้งหมดโดยรวมข้อมูลวิชาที่ลงทะเบียนและเกรด
 export const getAllStudents = async () => {
   return await prisma.$queryRaw`
 SELECT s.student_id,s.student_tile,s.student_name,s.student_surname,
@@ -16,10 +19,13 @@ SELECT s.student_id,s.student_tile,s.student_name,s.student_surname,
   `;
 };
 
+//ดึงชื่อนักเรียนทั้งหมด
 export const getAllStudentsName = async () => {
   return await prisma.$queryRaw`SELECT student_name FROM students ORDER BY student_name,student_age`;
 };
 
+
+//ดึง student โดยใช้ student_id รวมข้อมูลวิชาที่ลงทะเบียนและเกรดที่ผ่าน
 export const getStudentById = async (studentId) => {
   return await prisma.$queryRaw`
   SELECT s.student_id,s.student_tile,s.student_name,s.student_surname,
@@ -34,6 +40,7 @@ export const getStudentById = async (studentId) => {
   `;
 };
 
+//ดึง student โดยใช้ student_id รวมข้อมูลวิชาที่ลงทะเบียนเพื่อแสดงผลใน ADMIN
 export const getStudentDetailById = async (studentId) => {
   return await prisma.$queryRaw`
 SELECT s.student_id,s.student_tile,s.student_name,s.student_surname,
@@ -46,6 +53,7 @@ SELECT s.student_id,s.student_tile,s.student_name,s.student_surname,
   `;
 };
 
+//สร้างข้อมูล student ใหม่
 export const createStudent = async (student) => {
   return await prisma.students.create({
     data: student,

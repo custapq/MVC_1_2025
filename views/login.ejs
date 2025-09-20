@@ -59,12 +59,14 @@
       try {
         const endpoint =
           role === "student" ? "/users/login/student" : "/users/login/admin";
+        // เรียก API เพื่อ login
         const response = await axios.post(endpoint, {
           user_name: username,
           user_password: password,
         });
         console.log("User ID:", response.data);
         if (response.data != null) {
+          // นำ user ไปหน้า view ของแต่ละ role
           if (role === "admin") {
             window.location.href = `/${role}/${response.data[0].user_id}`
           } else {

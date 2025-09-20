@@ -7,6 +7,7 @@ import {
 import {getStudent} from "../models/studentModel.js";
 import {getSubjectById} from "../models/subjectsModel.js";
 
+//ลงทะเบียนวิชาใหม่
 export const registeredSubject = async (req, res) => {
   try {
     const { student_id, subject_id, grade } = req.body;
@@ -21,11 +22,11 @@ export const registeredSubject = async (req, res) => {
   }
 };
 
+//ลงทะเบียนวิชา พร้อมตรวจสอบเงื่อนไขที่ต้องใช้ในการลงทะเบียรน
 export const registerSubject = async (req, res) => {
   try {
     const { student_id, subject_id } = req.body;
     const student = await getStudent(student_id);
-    const register_subject = await getSubjectById(subject_id);  
     if (!student) {
       return res.status(404).json({ error: "student not found" });
     }
@@ -36,9 +37,10 @@ export const registerSubject = async (req, res) => {
     if (!subject) {
       return res.status(404).json({ error: "subject not found" });
     }
+    // ตรวจสอบว่ามีวิชาที่ต้องเรียนก่อนหรือไม่
     if (subject.subject_requiriste_id) {
       const prerequisiteSubjectId = subject.subject_requiriste_id;
-
+      //ดึงข้อมูลการลงทะเบียนวิชาที่ต้องเรียนก่อน
       const prerequisiteRegistration =
         await prisma.registeredSubjects.findFirst({
           where: {
@@ -54,12 +56,6 @@ export const registerSubject = async (req, res) => {
           });
       }
     }
-    const existingRegistration = await prisma.registeredSubjects.findFirst({
-      where: {
-        student_id,
-        subject_id,
-      },
-    });
     const newRegisteredSubject = await createRegisteredSubject({
       grade: null,
       student: {
@@ -78,7 +74,7 @@ export const registerSubject = async (req, res) => {
 export const changeGrade = async (req, res) => {
   const { student_id, subject_id, grade } = req.body;
   const validGrades = ["A", "B+", "B", "C+", "C", "D+", "D", "F", null, ""];
-
+  // ตรวจสอบว่าเกรดที่ส่งมาถูกต้องหรือไม่
   if (!validGrades.includes(grade.toUpperCase())) {
     return res
       .status(400)
@@ -105,14 +101,3 @@ export const changeGrade = async (req, res) => {
   }
 };
 
-export const getRegisteredSubjects = async (req, res) => {
-  try {
-    const { student_id } = req.params;
-    const registeredSubjects = await getRegisteredSubjectsByStudentId(
-      student_id
-    );
-    res.status(200).json(registeredSubjects);
-  } catch (error) {
-    res.status(500).json({ error: "error in getRegisteredSubjects" });
-  }
-};
