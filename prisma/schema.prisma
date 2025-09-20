@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  user_id Int @id @default(autoincrement())
+  user_name String
+  user_password String
+  user_role String
+
+  students Students?
+}
+
+model Students {
+  student_id String @id 
+  student_tile String
+  student_name String
+  student_surname String
+  student_birthdate DateTime
+  student_age Int
+  student_school String
+  student_email String @unique
+  student_subjectStructure_id Int
+  student_user_id Int @unique
+
+  user User @relation(fields: [student_user_id], references: [user_id])
+  registeredSubjects RegisteredSubjects[]
+  subjectStructure SubjectStructure @relation(fields: [student_subjectStructure_id], references: [subjectstructure_code])
+}
+
+model Subjects {
+  subject_id String @id 
+  subject_name String
+  subject_credit Int
+  subject_teacher String
+  subject_requiriste_id String? 
+
+  subjectStructures SubjectStructure[] 
+  registeredSubjects RegisteredSubjects[]
+  prerequisite Subjects? @relation("SubjectPrerequisite", fields: [subject_requiriste_id], references: [subject_id])
+  nextSubjects Subjects[] @relation("SubjectPrerequisite")
+}
+
+model SubjectStructure {
+  subjectstructure_code Int @id @default(autoincrement())
+  subjectstructure_id String 
+  subjectstructure_name String
+  subjectstructure_department_name String
+  subject_require_id String
+  subjectstructure_term Int
+  subject Subjects @relation(fields: [subject_require_id], references: [subject_id])
+
+  students Students[]
+
+}
+
+model RegisteredSubjects {
+  registeredsuject_id Int @id @default(autoincrement())
+  student_id String
+  subject_id String
+  grade String?
+
+  student Students @relation(fields: [student_id], references: [student_id])
+  subject Subjects @relation(fields: [subject_id], references: [subject_id])
+}

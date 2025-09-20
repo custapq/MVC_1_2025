@@ -1,0 +1,259 @@
+<div class="p-8 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Student Dashboard</h1>
+    <button
+      id="logoutButton"
+      class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300"
+    >
+      ออกจากระบบ
+    </button>
+  </div>
+
+  <div id="studentDetail" class="bg-gray-100 p-6 rounded-lg mb-6 text-left">
+    <p>
+      <span class="font-semibold">รหัสนักเรียน:</span>
+      <span id="studentIdDisplay"></span>
+    </p>
+    <p>
+      <span class="font-semibold">ชื่อ-สกุล:</span>
+      <span id="studentNameDisplay"></span>
+    </p>
+    <p>
+      <span class="font-semibold">ปีการศึกษา:</span>
+      <span id="studentYearDisplay"></span>
+    </p>
+  </div>
+
+  <div id="loading" class="text-center text-gray-500 hidden">
+    กำลังโหลดข้อมูล...
+  </div>
+
+  <div id="message" class="mt-4 text-center text-red-500 hidden"></div>
+
+  <h2 class="text-2xl font-semibold text-gray-700 mb-4">วิชาที่ลงทะเบียน</h2>
+  <div class="table-container">
+    <table class="min-w-full bg-white rounded-lg shadow overflow-hidden">
+      <thead class="bg-gray-200">
+        <tr>
+          <th
+            class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+          >
+            รหัสวิชา
+          </th>
+          <th
+            class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+          >
+            ชื่อวิชา
+          </th>
+          <th
+            class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+          >
+            หน่วยกิต
+          </th>
+          <th
+            class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+          >
+            เกรด
+          </th>
+        </tr>
+      </thead>
+      <tbody id="registeredSubjectsTableBody">
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex justify-center mt-6">
+    <button
+      id="addSubjectButton"
+      class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-300"
+    >
+      เพิ่มวิชา
+    </button>
+  </div>
+
+  <div id="allSubjectsContainer" class="mt-8 hidden">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">
+      วิชาที่สามารถลงทะเบียนได้
+    </h2>
+    <div class="table-container">
+      <table class="min-w-full bg-white rounded-lg shadow overflow-hidden">
+        <thead class="bg-gray-200">
+          <tr>
+            <th
+              class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+            >
+              รหัสวิชา
+            </th>
+            <th
+              class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+            >
+              ชื่อวิชา
+            </th>
+            <th
+              class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+            >
+              หน่วยกิต
+            </th>
+            <th
+              class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+            >
+              ลงทะเบียน
+            </th>
+          </tr>
+        </thead>
+        <tbody id="allSubjectsTableBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const pathParts = window.location.pathname.split("/");
+    const studentId = pathParts[2];
+
+    const loadingDiv = document.getElementById("loading");
+    const messageDiv = document.getElementById("message");
+    const registeredSubjectsTableBody = document.getElementById(
+      "registeredSubjectsTableBody"
+    );
+    const allSubjectsTableBody = document.getElementById(
+      "allSubjectsTableBody"
+    );
+    const allSubjectsContainer = document.getElementById(
+      "allSubjectsContainer"
+    );
+    const addSubjectButton = document.getElementById("addSubjectButton");
+    const logoutButton = document.getElementById("logoutButton");
+
+    async function fetchStudentDetails() {
+      try {
+        const response = await axios.get(`/students/${studentId}`);
+        const student = response.data[0];
+        document.getElementById("studentIdDisplay").textContent =
+          student.student_id;
+        document.getElementById(
+          "studentNameDisplay"
+        ).textContent = `${student.student_name} ${student.student_surname}`;
+        document.getElementById("studentYearDisplay").textContent =
+          student.subjectstructure_name;
+      } catch (error) {
+        console.error("Failed to fetch student details:", error);
+        messageDiv.textContent = "ไม่สามารถโหลดข้อมูลนักเรียนได้";
+        messageDiv.classList.remove("hidden");
+      }
+    }
+    async function fetchRegisteredSubjects() {
+      try {
+        const response = await axios.get(`/students/${studentId}`);
+        const subjects = response.data;
+        console.log(subjects);
+        registeredSubjectsTableBody.innerHTML = "";
+        if (subjects.length === 0) {
+          registeredSubjectsTableBody.innerHTML =
+            '<tr><td colspan="4" class="py-4 text-center text-gray-500">ยังไม่ได้ลงทะเบียนวิชาใดๆ</td></tr>';
+        } else {
+          subjects.forEach((regSubject) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                            <td class="py-2 px-4 border-b text-center">${
+                              regSubject.subject_id
+                            }</td>
+                            <td class="py-2 px-4 border-b text-center">${
+                              regSubject.subject_name
+                            }</td>
+                            <td class="py-2 px-4 border-b text-center">${
+                              regSubject.subject_credit
+                            }</td>
+                            <td class="py-2 px-4 border-b text-center">${
+                              regSubject.grade || "ยังไม่ระบุ"
+                            }</td>
+                        `;
+            registeredSubjectsTableBody.appendChild(row);
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch registered subjects:", error);
+        messageDiv.textContent = "ไม่สามารถโหลดข้อมูลรายวิชาที่ลงทะเบียนได้";
+        messageDiv.classList.remove("hidden");
+      }
+    }
+
+    async function fetchAllSubjects() {
+      allSubjectsContainer.classList.remove("hidden");
+      try {
+        const response = await axios.get(
+          `/subjects/notRegistered/${studentId}`
+        );
+        const subjects = response.data;
+        console.log(subjects);
+        allSubjectsTableBody.innerHTML = "";
+        if (subjects.length === 0) {
+          allSubjectsTableBody.innerHTML =
+            '<tr><td colspan="4" class="py-4 text-center text-gray-500">ไม่มีวิชาที่สามารถลงทะเบียนได้</td></tr>';
+        } else {
+          subjects.forEach((subject) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                            <td class="py-2 px-4 border-b text-center">${subject.subject_id}</td>
+                            <td class="py-2 px-4 border-b text-center">${subject.subject_name}</td>
+                            <td class="py-2 px-4 border-b text-center">${subject.subject_credit}</td>
+                            <td class="py-2 px-4 border-b text-center">
+                                <button class="add-subject-btn bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 transition duration-300" data-subject-id="${subject.subject_id}">เพิ่ม</button>
+                            </td>
+                        `;
+            allSubjectsTableBody.appendChild(row);
+          });
+          attachAddSubjectListeners();
+        }
+      } catch (error) {
+        console.error("Failed to fetch all subjects:", error);
+        messageDiv.textContent = "ไม่สามารถโหลดข้อมูลวิชาทั้งหมดได้";
+        messageDiv.classList.remove("hidden");
+      }
+    }
+
+    function attachAddSubjectListeners() {
+      document.querySelectorAll(".add-subject-btn").forEach((button) => {
+        button.addEventListener("click", async (e) => {
+          const subjectId = e.target.dataset.subjectId;
+          e.target.disabled = true;
+          try {
+            const response = await axios.post("/registerSubject", {
+              student_id: studentId,
+              subject_id: subjectId,
+            });
+            console.log(response);
+            if (response.status === 201) {
+              alert("ลงทะเบียนวิชาสำเร็จ!");
+              await fetchRegisteredSubjects();
+              await fetchAllSubjects();
+            } else {
+              alert("ไม่สามารถลงทะเบียนวิชาได้");
+            }
+          } catch (error) {
+            console.error("Failed to add subject:", error);
+            alert("เกิดข้อผิดพลาดในการลงทะเบียนวิชา");
+          } finally {
+            e.target.disabled = false;
+          }
+        });
+      });
+    }
+
+    addSubjectButton.addEventListener("click", () => {
+      fetchAllSubjects();
+      addSubjectButton.classList.add("hidden");
+    });
+
+    logoutButton.addEventListener("click", () => {
+      window.location.href = "/";
+    });
+
+    loadingDiv.classList.remove("hidden");
+    await fetchStudentDetails();
+    await fetchRegisteredSubjects();
+    loadingDiv.classList.add("hidden");
+  });
+</script>

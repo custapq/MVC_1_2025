@@ -1,0 +1,82 @@
+<div class="p-6 max-w-6xl mx-auto text-gray-800">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-semibold">Admin Dashboard</h1>
+    <button 
+      id="logoutButton" 
+      class="text-sm text-red-500 hover:text-red-600 transition">
+      ออกจากระบบ
+    </button>
+  </div>
+  <div class="flex border-b border-gray-200 mb-4">
+    <button 
+      id="studentsTab" 
+      class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:border-blue-500 border-b-2 border-transparent">
+      ข้อมูลนักเรียน
+    </button>
+  </div>
+  <div id="studentsContent" class="overflow-x-auto">
+    <table class="w-full text-sm text-left border-collapse">
+      <thead>
+        <tr class="text-gray-500">
+          <th class="py-2 px-3">รหัสนักเรียน</th>
+          <th class="py-2 px-3">ชื่อหน้า</th>
+          <th class="py-2 px-3">ชื่อ</th>
+          <th class="py-2 px-3">นามสกุล</th>
+          <th class="py-2 px-3">อายุ</th>
+          <th class="py-2 px-3">โรงเรียน</th>
+          <th class="py-2 px-3">หลักสูตร</th>
+          <th class="py-2 px-3">อีเมล</th>
+        </tr>
+      </thead>
+      <tbody id="studentsTableBody" class="divide-y divide-gray-200">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const studentsTableBody = document.getElementById('studentsTableBody');
+  const logoutButton = document.getElementById('logoutButton');
+
+  async function fetchStudents() {
+    try {
+      const response = await axios.get('/students');
+      const students = response.data;
+      studentsTableBody.innerHTML = '';
+
+      students.forEach(student => {
+        const row = document.createElement('tr');
+        row.classList.add('hover:bg-gray-50', 'cursor-pointer');
+
+        row.onclick = () => {
+          const pathParts = window.location.pathname.split('/');
+          const adminId = pathParts[2];
+          window.location.href = `/admin/${adminId}/student/${student.student_id}`;
+        };
+
+        row.innerHTML = `
+          <td class="py-2 px-3">${student.student_id}</td>
+          <td class="py-2 px-3">${student.student_tile}</td>
+          <td class="py-2 px-3">${student.student_name}</td>
+          <td class="py-2 px-3">${student.student_surname}</td>
+          <td class="py-2 px-3">${student.student_age}</td>
+          <td class="py-2 px-3">${student.student_school}</td>
+          <td class="py-2 px-3">${student.subjectstructure_name}</td>
+          <td class="py-2 px-3">${student.student_email}</td>
+        `;
+        studentsTableBody.appendChild(row);
+      });
+    } catch (error) {
+      console.error('Failed to fetch students:', error);
+      studentsTableBody.innerHTML = `<tr><td colspan="8" class="py-4 text-center text-red-500">ไม่สามารถโหลดข้อมูลนักเรียนได้</td></tr>`;
+    }
+  }
+
+  logoutButton.addEventListener('click', () => {
+    window.location.href = '/';
+  });
+
+  fetchStudents();
+});
+</script>

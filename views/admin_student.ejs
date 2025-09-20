@@ -1,0 +1,214 @@
+<div class="p-8 rounded-lg shadow-lg w-full max-w-4xl">
+  <div class="flex justify-between items-center mb-6">
+    <button
+      id="backButton"
+      class="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500 transition duration-300"
+    >
+      ย้อนกลับ
+    </button>
+    <h1 class="text-3xl font-bold text-gray-800">ข้อมูลนักเรียน</h1>
+    <div></div>
+  </div>
+
+  <div id="studentDetail" class="bg-gray-100 p-6 rounded-lg mb-6 text-left">
+    <p>
+      <span class="font-semibold">รหัสนักเรียน:</span>
+      <span id="studentIdDisplay"></span>
+    </p>
+    <p>
+      <span class="font-semibold">ชื่อ-สกุล:</span>
+      <span id="studentNameDisplay"></span>
+    </p>
+    <p>
+      <span class="font-semibold">ปีการศึกษา:</span>
+      <span id="studentYearDisplay"></span>
+    </p>
+  </div>
+
+  <div id="loading" class="text-center text-gray-500 hidden">
+    กำลังโหลดข้อมูล...
+  </div>
+
+  <div id="message" class="mt-4 text-center text-red-500 hidden"></div>
+
+  <h2 class="text-2xl font-semibold text-gray-700 mb-4">รายวิชาที่ลงทะเบียน</h2>
+  <div class="table-container">
+    <table class="min-w-full bg-white rounded-lg shadow overflow-hidden">
+      <thead class="bg-gray-200">
+        <tr>
+          <th
+            class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+          >
+            รหัสวิชา
+          </th>
+          <th
+            class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+          >
+            ชื่อวิชา
+          </th>
+          <th
+            class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+          >
+            เกรด
+          </th>
+          <th
+            class="py-2 px-4 border-b text-center font-semibold text-gray-600"
+          >
+            แก้ไข
+          </th>
+        </tr>
+      </thead>
+      <tbody id="subjectsTableBody">
+        <!-- Subject data will be loaded here -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const pathParts = window.location.pathname.split("/");
+    const studentId = pathParts[4];
+    const loadingDiv = document.getElementById("loading");
+    const messageDiv = document.getElementById("message");
+
+    const studentIdDisplay = document.getElementById("studentIdDisplay");
+    const studentNameDisplay = document.getElementById("studentNameDisplay");
+    const studentYearDisplay = document.getElementById("studentYearDisplay");
+    const subjectsTableBody = document.getElementById("subjectsTableBody");
+    const backButton = document.getElementById("backButton");
+
+    loadingDiv.classList.remove("hidden");
+    async function fetchStudentDetails() {
+      try {
+        const response = await axios.get(`/students/admin/${studentId}`);
+        const student = response.data[0];
+        studentIdDisplay.textContent = student.student_id;
+        studentNameDisplay.textContent = `${student.student_name} ${student.student_surname}`;
+        studentYearDisplay.textContent = student.subjectstructure_name;
+      } catch (error) {
+        console.error("Failed to fetch student details:", error);
+        messageDiv.textContent = "ไม่สามารถโหลดข้อมูลนักเรียนได้";
+        messageDiv.classList.remove("hidden");
+      }
+    }
+
+    async function fetchSubjects() {
+      try {
+        const response = await axios.get(`/students/admin/${studentId}`);
+        const subjects = response.data;
+        console.log(subjects);
+        subjectsTableBody.innerHTML = "";
+
+        if (subjects.length === 0) {
+          subjectsTableBody.innerHTML =
+            '<tr><td colspan="4" class="py-4 text-center text-gray-500">ยังไม่ได้ลงทะเบียนวิชาใดๆ</td></tr>';
+        } else {
+          subjects.forEach((regSubject) => {
+            console.log(regSubject.subject_id);
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                            <td class="py-2 px-4 border-b text-center">${
+                              regSubject.subject_id
+                            }</td>
+                            <td class="py-2 px-4 border-b text-center">${
+                              regSubject.subject_name
+                            }</td>
+                            <td class="py-2 px-4 border-b text-center">
+                                <select class="grade-select border rounded p-1">
+                                    <option value="" ${
+                                      regSubject.grade === null ||
+                                      regSubject.grade === ""
+                                        ? "selected"
+                                        : ""
+                                    }>ยังไม่ระบุ</option>
+                                    <option value="A" ${
+                                      regSubject.grade === "A" ? "selected" : ""
+                                    }>A</option>
+                                    <option value="B+" ${
+                                      regSubject.grade === "B+"
+                                        ? "selected"
+                                        : ""
+                                    }>B+</option>
+                                    <option value="B" ${
+                                      regSubject.grade === "B" ? "selected" : ""
+                                    }>B</option>
+                                    <option value="C+" ${
+                                      regSubject.grade === "C+"
+                                        ? "selected"
+                                        : ""
+                                    }>C+</option>
+                                    <option value="C" ${
+                                      regSubject.grade === "C" ? "selected" : ""
+                                    }>C</option>
+                                    <option value="D+" ${
+                                      regSubject.grade === "D+"
+                                        ? "selected"
+                                        : ""
+                                    }>D+</option>
+                                    <option value="D" ${
+                                      regSubject.grade === "D" ? "selected" : ""
+                                    }>D</option>
+                                    <option value="F" ${
+                                      regSubject.grade === "F" ? "selected" : ""
+                                    }>F</option>
+                                </select>
+                            </td>
+                            <td class="py-2 px-4 border-b text-center">
+                                <button class="update-grade-btn bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition duration-300" data-subject-id="${
+                                  regSubject.subject_id
+                                }">อัปเดต</button>
+                            </td>
+                        `;
+            subjectsTableBody.appendChild(row);
+          });
+          attachGradeUpdateListeners();
+        }
+      } catch (error) {
+        console.error("Failed to fetch subjects:", error);
+        messageDiv.textContent = "ไม่สามารถโหลดข้อมูลรายวิชาได้";
+        messageDiv.classList.remove("hidden");
+      } finally {
+        loadingDiv.classList.add("hidden");
+      }
+    }
+
+    function attachGradeUpdateListeners() {
+      document.querySelectorAll(".update-grade-btn").forEach((button) => {
+        button.addEventListener("click", async (e) => {
+          const subjectId = e.target.dataset.subjectId;
+          const newGrade = e.target
+            .closest("tr")
+            .querySelector(".grade-select").value;
+          e.target.disabled = true;
+
+          try {
+            const response = await axios.put("/updateGrade", {
+              student_id: studentId,
+              subject_id: subjectId,
+              grade: newGrade,
+            });
+            if (response.status === 200) {
+              alert("อัปเดตเกรดสำเร็จ!");
+            } else {
+              alert("ไม่สามารถอัปเดตเกรดได้");
+            }
+          } catch (error) {
+            console.error("Failed to update grade:", error);
+            alert("เกิดข้อผิดพลาดในการอัปเดตเกรด");
+          } finally {
+            e.target.disabled = false;
+          }
+        });
+      });
+    }
+    backButton.addEventListener("click", () => {
+      const pathParts = window.location.pathname.split("/");
+      const adminId = pathParts[2];
+      window.location.href = `/admin/${adminId}`;
+    });
+
+    await fetchStudentDetails();
+    await fetchSubjects();
+  });
+</script>
