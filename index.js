@@ -7,9 +7,6 @@ import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import routes from "./routes/routes.js";
 
-
-// const costumeController = require("./routes/costumeRoute");
-
 const app = express();
 const PORT = 3000;
 
@@ -21,7 +18,6 @@ app.set("layout", "layout");
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use("/", routes);
-// app.use("/", costumeController);
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
