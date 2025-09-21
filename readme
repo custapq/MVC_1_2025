@@ -1,5 +1,23 @@
 ข้อที่ 1 การสอบ MVC ครั้งที่ 1 ปี 2568
 
+* วิธีการใช้งาน
+** clone repository นี้
+`git clone https://github.com/custapq/MVC_1_2025.git`
+
+** ติดตั้ง dependencies
+`npm install`
+
+** ตั้งแค่ env
+- สร้างไฟล์ .env ขึ้นมาใน root directory
+- เพิ่ม DATABASE_URL ลงไปในไฟล์ .env
+`DATABASE_URL="file:./dev.db"`
+
+** สร้าง prisma client
+`npx prisma generate`
+
+** Run server 
+`npm run dev`
+
 เครื่องมือที่ใช้ express.js prisma orm ที่เชื่อมต่อกับ sqlite เพื่อจัดการเกี่ยวกับ Database โดยมี schema.prisma ที่ใช้ในการกำหนดโครงสร้าง database 
  ejs view engine สำหรับแสดง View โดยการสร้าง html ที่มีการแสดงผลข้อมูลของ Model ที่ส่งผ่านจาก Controller โดยมี tailwind css framework ที่ช่วยในการจัดการ css ให้สะดวกขึ้น
 
