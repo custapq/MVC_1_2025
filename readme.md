@@ -10,7 +10,7 @@
 ### ตั้งแค่ env
 - สร้างไฟล์ .env ขึ้นมาใน root directory
 - เพิ่ม DATABASE_URL ลงไปในไฟล์ .env
-`DATABASE_URL="file:./dev.db"`
+`DATABASE_URL="file:./mydb.db"`
 
 ### สร้าง prisma client
 `npx prisma generate`
