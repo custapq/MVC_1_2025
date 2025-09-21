@@ -1,21 +1,21 @@
-ข้อที่ 1 การสอบ MVC ครั้งที่ 1 ปี 2568
+# ข้อที่ 1 การสอบ MVC ครั้งที่ 1 ปี 2568
 
-* วิธีการใช้งาน
-** clone repository นี้
+## วิธีการใช้งาน
+### clone repository นี้
 `git clone https://github.com/custapq/MVC_1_2025.git`
 
-** ติดตั้ง dependencies
+### ติดตั้ง dependencies
 `npm install`
 
-** ตั้งแค่ env
+### ตั้งแค่ env
 - สร้างไฟล์ .env ขึ้นมาใน root directory
 - เพิ่ม DATABASE_URL ลงไปในไฟล์ .env
 `DATABASE_URL="file:./dev.db"`
 
-** สร้าง prisma client
+### สร้าง prisma client
 `npx prisma generate`
 
-** Run server 
+### Run server 
 `npm run dev`
 
 เครื่องมือที่ใช้ express.js prisma orm ที่เชื่อมต่อกับ sqlite เพื่อจัดการเกี่ยวกับ Database โดยมี schema.prisma ที่ใช้ในการกำหนดโครงสร้าง database 
@@ -23,36 +23,39 @@
 
 โดยมีไฟล์หลักๆดังนี้
 
-Model
-	- userModel ใช้ติดต่อกับ database table user สำหรับสร้างและดึงข้อมูลผู้ใช้ โดยแบ่งเป็น 2 Role คือ ADMIN และ STUDENT ซึ่ง STUDENT จะใช้ student_id ในการlogin
-	- subjectModel ใช้ติดต่อกับ database table subject สำหรับสร้างและดึงข้อมูลรายวิชา โดยแบ่งเป็นการลงทะเบียนวิชา การดึงโดยใช้ subject_id หรือ ดึงทั้งหมด 
-	- subjectStructure ใช้ติดต่อกับ database table subjectStructure สำหรับสร้างและดึงข้อมูลหลักสูตร
-	- studentModel  ใช้ติดต่อกับ database table student สำหรับสร้างและดึงข้อมูลนักเรียน โดยเน้นที่การดึงข้อมูลนักเรียนที่แบ่งเป็น 2 แบบคือดึงมาแสดงผลในหน้าของ ADMIN และดึงมาแสดงผลในหน้าของ STUDENT
-	- registerdSubject ใช้ติดต่อกับ database table registerdSubject สำหรับสร้างและดึงข้อรายวิชายที่นักเรียนคนนั้นต้องการลงทะเบียน 
-View 
-	- layout เป็นไฟล์หลักสำหรับแสดงผลในการเรียกใช้ทุกๆ view ต่อจากนี้
-	- login สำหรับแสดงผลหน้า login โดยแบ่งเป็ฯ 2 ส่วนคือ student และ admin 
-	- admin เมื่อ login ด้วย admin จะมายังหน้านี้ สำหรับแสดง admin dashboard ที่จะแสดงรายการนักเรียนทั้งหมด และสามารถคลิกเข้าไปดูรายละเอียดได้ที่จะไปเชื่อมต่อกับ view admin_student
-	- admin_student สำหรับแสดงข้อมู,รายละเอียดของนักเรียนคนนั้นๆ โดยสามารถแก้ไขเกรดของนักเรียนได้
-	- student เมื่อ login ด้วย student จะมายังหน้านี้ซึ่งจะแสดงรายวิชาที่ลงทะเบียนไว้และมีเกรด มีปุ่มเพิ่มวิชาเพื่อลงทะเบียนเพิ่ม(ควรทำแยกกันระหว่างดูรายละเอียดกับการลงทะเบียนแต่ผมทำไม่ทันแล้ว)
-Controller เชื่อมต่อกับ Model เพื่อจัดการข้อมูล
-	- userController จัดการการ loginของ student หรือ admin 
-	- subjectController จัดการข้อมูลเกี่ยวกับรายวิชา เช่นการเพิ่มรายวิชาเข้ามา,ตรวจสอบความถูกต้องของรหัสวิชา
-	- subjectStructureController จัดการข้อมูลเกี่ยวกับหลักสูตร ตรวจสอบความถูกต้องของรหัสหลักสูตร
-	- studentController จัดการข้อมูลนักเรียน การสร้างข้อมูลนักเรียน 
-	- registerdSubjectController จัดการเกี่ยวกับการลงทะเบียนของนักเรียน และตรวจสอบข้อมูลก่อนที่จะลงทะเบียน
+## Model
+- userModel ใช้ติดต่อกับ database table user สำหรับสร้างและดึงข้อมูลผู้ใช้ โดยแบ่งเป็น 2 Role คือ ADMIN และ STUDENT ซึ่ง STUDENT จะใช้ student_id ในการlogin
+  
+- subjectModel ใช้ติดต่อกับ database table subject สำหรับสร้างและดึงข้อมูลรายวิชา โดยแบ่งเป็นการลงทะเบียนวิชา การดึงโดยใช้ subject_id หรือ ดึงทั้งหมด 
+- subjectStructure ใช้ติดต่อกับ database table subjectStructure สำหรับสร้างและดึงข้อมูลหลักสูตร
+- studentModel  ใช้ติดต่อกับ database table student สำหรับสร้างและดึงข้อมูลนักเรียน โดยเน้นที่การดึงข้อมูลนักเรียนที่แบ่งเป็น 2 แบบคือดึงมาแสดงผลในหน้าของ ADMIN และดึงมาแสดงผลในหน้าของ STUDENT
+- registerdSubject ใช้ติดต่อกับ database table registerdSubject สำหรับสร้างและดึงข้อรายวิชายที่นักเรียนคนนั้นต้องการลงทะเบียน 
+  
+## View 
+- layout เป็นไฟล์หลักสำหรับแสดงผลในการเรียกใช้ทุกๆ view ต่อจากนี้
+- login สำหรับแสดงผลหน้า login โดยแบ่งเป็ฯ 2 ส่วนคือ student และ admin 
+- admin เมื่อ login ด้วย admin จะมายังหน้านี้ สำหรับแสดง admin dashboard ที่จะแสดงรายการนักเรียนทั้งหมด และสามารถคลิกเข้าไปดูรายละเอียดได้ที่จะไปเชื่อมต่อกับ view admin_student
+- admin_student สำหรับแสดงข้อมู,รายละเอียดของนักเรียนคนนั้นๆ โดยสามารถแก้ไขเกรดของนักเรียนได้
+- student เมื่อ login ด้วย student จะมายังหน้านี้ซึ่งจะแสดงรายวิชาที่ลงทะเบียนไว้และมีเกรด มีปุ่มเพิ่มวิชาเพื่อลงทะเบียนเพิ่ม(ควรทำแยกกันระหว่างดูรายละเอียดกับการลงทะเบียนแต่ผมทำไม่ทันแล้ว)
+  
+## Controller เชื่อมต่อกับ Model เพื่อจัดการข้อมูล
+- userController จัดการการ loginของ student หรือ admin 
+- subjectController จัดการข้อมูลเกี่ยวกับรายวิชา เช่นการเพิ่มรายวิชาเข้ามา,ตรวจสอบความถูกต้องของรหัสวิชา
+- subjectStructureController จัดการข้อมูลเกี่ยวกับหลักสูตร ตรวจสอบความถูกต้องของรหัสหลักสูตร
+- studentController จัดการข้อมูลนักเรียน การสร้างข้อมูลนักเรียน 
+- registerdSubjectController จัดการเกี่ยวกับการลงทะเบียนของนักเรียน และตรวจสอบข้อมูลก่อนที่จะลงทะเบียน
 
-Route
-	- สำหรับจัดการ path ของ View และ API ที่ใช้ในการติดต่อระหว่าง View  กับ Controller
+## Route
+- สำหรับจัดการ path ของ View และ API ที่ใช้ในการติดต่อระหว่าง View  กับ Controller
 	
-schema.prisma
-	- การกำหนดโครงสร้าง database 
+## schema.prisma
+- การกำหนดโครงสร้าง database 
 	
-ตัวอย่างข้อมูลในการใช้ login
+# ตัวอย่างข้อมูลในการใช้ login
 ADMIN
-	- username : admin
-	- password : password
+- username : admin
+- password : password
 
 STUDENT
-	- username : 69010001
-	- password : 12345678
+- username : 69010001
+- password : 12345678
